@@ -5,6 +5,7 @@ import { config } from 'dotenv';
 
 import appConfig from './config/app.config';
 import { AppConfigModule } from './config/app-config.module'; // Importar AppConfigModule
+import IngredientModule from './modules/ingredient/ingredient.module';
 
 config({
   path: process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : '.env',
@@ -31,7 +32,8 @@ config({
         },
       }),
     }),
-    AppConfigModule, // Importar el AppConfigModule
+    AppConfigModule,
+    IngredientModule,
   ],
   controllers: [],
   providers: [],
