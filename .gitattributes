@@ -1,0 +1,9 @@
+# Configuración de finales de línea para todos los archivos
+* text=auto
+
+# Si necesitas asegurarte de que ciertos tipos de archivos utilicen LF
+*.sh text eol=lf
+*.md text eol=lf
+
+# Si necesitas asegurarte de que ciertos tipos de archivos utilicen CRLF
+*.bat text eol=crlf
