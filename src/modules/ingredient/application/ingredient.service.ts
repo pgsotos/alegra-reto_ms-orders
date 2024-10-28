@@ -13,12 +13,15 @@ export class IngredientService {
 
   async onModuleInit() {
     const ingredients = Object.values(IngredientType);
+
     const existingIngredients = (
       await this.ingredientRepository.findAllIngredients()
     ).map((i) => i.name);
+
     const missingIngredients = ingredients.filter(
       (ingredient) => !existingIngredients.includes(ingredient)
     );
+
     for (const ingredient of missingIngredients) {
       await this.ingredientRepository.createIngredient(ingredient);
     }
@@ -26,12 +29,14 @@ export class IngredientService {
 
   async getAllIngredients(): Promise<IIngredientEntity[]> {
     const ingredients = await this.ingredientRepository.findAllIngredients();
+
     return ingredients;
   }
 
   async getIngredient(ingredient: IngredientType): Promise<IIngredientEntity> {
     const ingredientInfo =
       await this.ingredientRepository.findIngredient(ingredient);
+
     return ingredientInfo;
   }
 
@@ -50,6 +55,7 @@ export class IngredientService {
       const current = currentIngredients.find(
         (i) => i.name === ingredient.name
       );
+
       return !current || current.quantity < ingredient.quantity;
     });
 
@@ -63,7 +69,9 @@ export class IngredientService {
           };
         })
       );
+
       await this.ingredientRepository.addIngredients(toAdd);
+
       return this.getIngredientsToRecipe(ingredientsDto);
     }
 
