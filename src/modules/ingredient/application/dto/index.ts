@@ -4,7 +4,7 @@ import { IIngredientEntity, IngredientType } from '../../domain/entity';
 
 export class IngredientDto implements IIngredientEntity {
   @IsEnum(IngredientType, { message: 'name must be a valid ingredient type' })
-  name: IngredientType;
+  ingredient: IngredientType;
 
   @IsInt({ message: 'quantity must be an integer' })
   @Min(1, { message: 'quantity must be at least 1' })

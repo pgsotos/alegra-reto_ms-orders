@@ -11,9 +11,12 @@ export enum IngredientType {
   Chicken = 'chicken',
 }
 
-export interface IIngredientEntity {
+export interface IIngredientRecipe {
   ingredient: IngredientType;
   quantity: number;
 }
 
-export interface IngredientDocument extends IIngredientEntity, Document {}
+export interface IRecipeEntity {
+  name: string;
+  ingredients: IIngredientRecipe[];
+}

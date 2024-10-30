@@ -15,5 +15,3 @@ export interface IIngredientEntity {
   ingredient: IngredientType;
   quantity: number;
 }
-
-export interface IngredientDocument extends IIngredientEntity, Document {}

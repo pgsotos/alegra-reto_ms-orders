@@ -25,6 +25,12 @@ export class RecipeService {
   async getRecipes() {
     return this.recipeRepository.findAllRecipes();
   }
+
+  async getRandomRecipe() {
+    const recipes = await this.recipeRepository.findAllRecipes();
+    const randomIndex = Math.floor(Math.random() * recipes.length);
+    return recipes[randomIndex];
+  }
 }
 
 export default RecipeService;

@@ -9,6 +9,11 @@ export class RecipeController {
   async getRecipes() {
     return this.recipesService.getRecipes();
   }
+
+  @Get('random')
+  async getRandomRecipe() {
+    return this.recipesService.getRandomRecipe();
+  }
 }
 
 export default RecipeController;

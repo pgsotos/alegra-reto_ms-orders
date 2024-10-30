@@ -16,7 +16,7 @@ export class IngredientService {
 
     const existingIngredients = (
       await this.ingredientRepository.findAllIngredients()
-    ).map((i) => i.name);
+    ).map((i) => i.ingredient);
 
     const missingIngredients = ingredients.filter(
       (ingredient) => !existingIngredients.includes(ingredient)
@@ -48,12 +48,12 @@ export class IngredientService {
     );
 
     const currentIngredients = await this.ingredientRepository.findIngredients(
-      ingredients.map((i) => i.name)
+      ingredients.map((i) => i.ingredient)
     );
 
     const insufficientIngredients = ingredients.filter((ingredient) => {
       const current = currentIngredients.find(
-        (i) => i.name === ingredient.name
+        (i) => i.ingredient === ingredient.ingredient
       );
 
       return !current || current.quantity < ingredient.quantity;
@@ -61,10 +61,11 @@ export class IngredientService {
 
     if (insufficientIngredients.length) {
       const toAdd = await Promise.all(
-        insufficientIngredients.map(async ({ name }) => {
-          const { quantitySold } = await MarketService.buyIngredient(name);
+        insufficientIngredients.map(async ({ ingredient }) => {
+          const { quantitySold } =
+            await MarketService.buyIngredient(ingredient);
           return {
-            name,
+            ingredient,
             quantity: quantitySold,
           };
         })

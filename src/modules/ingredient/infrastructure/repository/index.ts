@@ -21,18 +21,18 @@ export class IngredientRepository implements IIngredientRepository {
     ingredients: IngredientType[]
   ): Promise<IIngredientEntity[]> {
     return this.IngredientModel.find({
-      name: { $in: ingredients },
+      ingredient: { $in: ingredients },
     });
   }
 
   async findIngredient(ingredient: IngredientType): Promise<IIngredientEntity> {
-    return this.IngredientModel.findOne({ name: ingredient });
+    return this.IngredientModel.findOne({ ingredient });
   }
 
   async createIngredient(
     ingredient: IngredientType
   ): Promise<IIngredientEntity> {
-    return this.IngredientModel.create({ name: ingredient, quantity: 5 });
+    return this.IngredientModel.create({ ingredient, quantity: 5 });
   }
 
   async addIngredients(
@@ -40,7 +40,7 @@ export class IngredientRepository implements IIngredientRepository {
   ): Promise<IIngredientEntity[]> {
     const bulkOps = ingredients.map((ingredient) => ({
       updateOne: {
-        filter: { name: ingredient.name },
+        filter: { ingredient: ingredient.ingredient },
         update: { $inc: { quantity: ingredient.quantity } },
       },
     }));
@@ -48,7 +48,7 @@ export class IngredientRepository implements IIngredientRepository {
     await this.IngredientModel.bulkWrite(bulkOps);
 
     const updatedIngredients = await this.IngredientModel.find({
-      name: { $in: ingredients.map((i) => i.name) },
+      ingredient: { $in: ingredients.map((i) => i.ingredient) },
     }).exec();
 
     return updatedIngredients;
@@ -59,7 +59,7 @@ export class IngredientRepository implements IIngredientRepository {
   ): Promise<IIngredientEntity[]> {
     const bulkOps = ingredients.map((ingredient) => ({
       updateOne: {
-        filter: { name: ingredient.name },
+        filter: { ingredient: ingredient.ingredient },
         update: { $inc: { quantity: -ingredient.quantity } },
       },
     }));
@@ -67,7 +67,7 @@ export class IngredientRepository implements IIngredientRepository {
     await this.IngredientModel.bulkWrite(bulkOps);
 
     const updatedIngredients = await this.IngredientModel.find({
-      name: { $in: ingredients.map((i) => i.name) },
+      ingredient: { $in: ingredients.map((i) => i.ingredient) },
     }).exec();
 
     return updatedIngredients;

@@ -7,6 +7,7 @@ import appConfig from './config/app.config';
 import { AppConfigModule } from './config/app-config.module'; // Importar AppConfigModule
 import IngredientModule from './modules/ingredient/ingredient.module';
 import RecipeModule from './modules/recipe/recipe.module';
+import OrderModule from './modules/order/order.module';
 
 config({
   path: process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : '.env',
@@ -36,6 +37,7 @@ config({
     AppConfigModule,
     IngredientModule,
     RecipeModule,
+    OrderModule,
   ],
   controllers: [],
   providers: [],
