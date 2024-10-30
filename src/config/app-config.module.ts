@@ -4,7 +4,7 @@ import { AppConfigService } from './app-config.service';
 
 @Module({
   providers: [AppConfigService],
-  exports: [AppConfigService], // Exportar el servicio para usarlo en otros módulos
+  exports: [AppConfigService],
 })
 export class AppConfigModule {}
 export default AppConfigModule;

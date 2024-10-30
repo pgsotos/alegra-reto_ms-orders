@@ -28,6 +28,14 @@ export class AppConfigService {
   get domain(): string {
     return this.configService.get<string>('domain');
   }
+
+  get endpointMsRecipe(): string {
+    return this.configService.get<string>('endpointMsRecipe');
+  }
+
+  get endpointMsIngredient(): string {
+    return this.configService.get<string>('endpointMsIngredient');
+  }
 }
 
 export default AppConfigService;
