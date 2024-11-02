@@ -5,6 +5,7 @@ import { config } from 'dotenv';
 
 import appConfig from './config/app.config';
 import { AppConfigModule } from './config/app-config.module'; // Importar AppConfigModule
+import WebSocketModule from './modules/websocket/websocket.module';
 import IngredientModule from './modules/ingredient/ingredient.module';
 import RecipeModule from './modules/recipe/recipe.module';
 import OrderModule from './modules/order/order.module';
@@ -35,6 +36,7 @@ config({
       }),
     }),
     AppConfigModule,
+    WebSocketModule,
     IngredientModule,
     RecipeModule,
     OrderModule,

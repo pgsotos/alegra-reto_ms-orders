@@ -1,13 +1,14 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { IOrderRepository } from '../domain/repository';
 import RecipeService from '../infrastructure/service/recipeService';
-import IngredientService from '../infrastructure/service/ingredientService';
+import WebSocketService from '../../websocket/application/websocket.service';
 
 @Injectable()
 export class OrderService {
   constructor(
     @Inject('OrderRepository')
-    private readonly orderRepository: IOrderRepository
+    private readonly orderRepository: IOrderRepository,
+    private readonly webSocketService: WebSocketService
   ) {}
 
   async getOrders() {
@@ -28,11 +29,8 @@ export class OrderService {
 
   async createOrder() {
     const recipe = await RecipeService.getRandomRecipe();
-    console.log(recipe.ingredients);
-    const remainingIngredients = await IngredientService.getIngredientsToRecipe(
-      recipe.ingredients
-    );
-    return this.orderRepository.generateOrder(recipe.name);
+    const order = await this.orderRepository.generateOrder(recipe.name);
+    this.webSocketService.sendOrderToClient(order);
   }
 }
 

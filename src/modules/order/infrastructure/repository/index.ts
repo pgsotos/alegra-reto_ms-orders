@@ -13,17 +13,17 @@ export class OrderRepository implements IOrderRepository {
   ) {}
 
   getLastsOrders(): Promise<IOrderEntity[]> {
-    return this.orderModel.find().sort({ orderNumber: 1 }).limit(10);
+    return this.orderModel.find().sort({ orderNumber: -1 }).limit(10);
   }
 
   getAllOrders(): Promise<IOrderEntity[]> {
-    return this.orderModel.find().sort({ orderNumber: 1 });
+    return this.orderModel.find().sort({ orderNumber: -1 });
   }
 
   getInProgressOrders(): Promise<IOrderEntity[]> {
     return this.orderModel
       .find({ status: IOrderStatus.InProgress })
-      .sort({ orderNumber: 1 });
+      .sort({ orderNumber: -1 });
   }
 
   changeOrderStatus(orderNumber: number): Promise<IOrderEntity> {
