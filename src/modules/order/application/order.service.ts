@@ -18,6 +18,10 @@ export class OrderService {
     return this.orderRepository.getLastsOrders();
   }
 
+  async getInProgressOrders() {
+    return this.orderRepository.getInProgressOrders();
+  }
+
   async changeOrderStatus(orderNumber: number) {
     return this.orderRepository.changeOrderStatus(orderNumber);
   }

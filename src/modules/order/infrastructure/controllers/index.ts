@@ -22,6 +22,11 @@ export class OrderController {
     return this.ordersService.getLastsOrders();
   }
 
+  @Get('in-progress')
+  async getInProgressOrders() {
+    return this.ordersService.getInProgressOrders();
+  }
+
   @Patch(':orderNumber')
   async changeOrderStatus(
     @Param('orderNumber', ParseIntPipe) orderNumber: number

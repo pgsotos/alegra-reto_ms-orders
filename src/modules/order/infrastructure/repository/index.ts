@@ -4,8 +4,6 @@ import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
 import { IOrderEntity, IOrderStatus } from '../../domain/entity';
 import { IOrderRepository } from '../../domain/repository';
-import RecipeService from '../service/recipeService';
-import IngredientService from '../service/ingredientService';
 
 @Injectable()
 export class OrderRepository implements IOrderRepository {
@@ -15,7 +13,17 @@ export class OrderRepository implements IOrderRepository {
   ) {}
 
   getLastsOrders(): Promise<IOrderEntity[]> {
-    return this.orderModel.find().sort({ createdAt: -1 }).limit(10);
+    return this.orderModel.find().sort({ orderNumber: 1 }).limit(10);
+  }
+
+  getAllOrders(): Promise<IOrderEntity[]> {
+    return this.orderModel.find().sort({ orderNumber: 1 });
+  }
+
+  getInProgressOrders(): Promise<IOrderEntity[]> {
+    return this.orderModel
+      .find({ status: IOrderStatus.InProgress })
+      .sort({ orderNumber: 1 });
   }
 
   changeOrderStatus(orderNumber: number): Promise<IOrderEntity> {
@@ -26,15 +34,8 @@ export class OrderRepository implements IOrderRepository {
     );
   }
 
-  getAllOrders(): Promise<IOrderEntity[]> {
-    return this.orderModel.find().sort({ createdAt: -1 });
-  }
-
-  async generateOrder(recipe: string): Promise<IOrderEntity> {
-    console.log(recipe);
-    const order = await this.orderModel.create({ recipe });
-    console.log(order);
-    return order;
+  generateOrder(recipe: string): Promise<IOrderEntity> {
+    return this.orderModel.create({ recipe });
   }
 }
 

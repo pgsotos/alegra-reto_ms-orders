@@ -1,11 +1,6 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { Document, Model, Connection } from 'mongoose';
-import { IOrderDocument } from '../../domain/entity';
-
-export enum IOrderStatus {
-  Pending = 'pending',
-  Completed = 'completed',
-}
+import { Document } from 'mongoose';
+import { IOrderDocument, IOrderStatus } from '../../domain/entity';
 
 @Schema({ timestamps: true, versionKey: false })
 export class Order extends Document {
@@ -15,7 +10,7 @@ export class Order extends Document {
   @Prop({ type: String, required: true })
   recipe: string;
 
-  @Prop({ type: String, enum: IOrderStatus, default: IOrderStatus.Pending })
+  @Prop({ type: String, enum: IOrderStatus, default: IOrderStatus.InProgress })
   status: IOrderStatus;
 }
 
