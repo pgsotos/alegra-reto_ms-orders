@@ -25,14 +25,17 @@ export class OrderService {
   }
 
   async changeOrderStatus(orderNumber: number) {
-    return this.orderRepository.changeOrderStatus(orderNumber);
+    const order = await this.orderRepository.changeOrderStatus(orderNumber);
+    this.sseService.emitUpdatedOrder(order);
+    return order;
   }
 
   async createOrder() {
     const recipe = await RecipeService.getRandomRecipe();
     await IngredientService.getIngredientsToRecipe(recipe.ingredients);
     const order = await this.orderRepository.generateOrder(recipe.name);
-    this.sseService.emitOrdersUpdate(order);
+    this.sseService.emitCreatedOrder(order);
+    return order;
   }
 }
 

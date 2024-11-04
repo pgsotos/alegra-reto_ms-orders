@@ -4,17 +4,23 @@ import { Subject, Observable } from 'rxjs';
 
 @Injectable()
 export class SseService {
-  // Subject para emitir actualizaciones manuales
-  private ordersUpdates = new Subject<{ data: any }>();
+  private createdOrder = new Subject<{ data: any }>();
+  private updatedOrder = new Subject<{ data: any }>();
 
-  // Método para emitir manualmente actualizaciones de ingredientes
-  emitOrdersUpdate(orders: any): void {
-    this.ordersUpdates.next({ data: orders });
+  emitCreatedOrder(order: any): void {
+    this.createdOrder.next({ data: order });
   }
 
-  // Obtener observable para actualizaciones
-  getOrdersUpdates(): Observable<{ data: any }> {
-    return this.ordersUpdates.asObservable();
+  getCreatedOrder(): Observable<{ data: any }> {
+    return this.createdOrder.asObservable();
+  }
+
+  emitUpdatedOrder(order: any): void {
+    this.updatedOrder.next({ data: order });
+  }
+
+  getUpdatedOrder(): Observable<{ data: any }> {
+    return this.updatedOrder.asObservable();
   }
 }
 

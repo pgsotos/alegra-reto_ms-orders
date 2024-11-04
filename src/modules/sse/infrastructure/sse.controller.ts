@@ -7,9 +7,14 @@ import SseService from '../application/sse.service';
 export class SseController {
   constructor(private readonly sseService: SseService) {}
 
-  @Sse('events')
-  sendEvents(): Observable<{ data: any }> {
-    return this.sseService.getOrdersUpdates();
+  @Sse('createdOrder')
+  sendCreatedOrder(): Observable<{ data: any }> {
+    return this.sseService.getCreatedOrder();
+  }
+
+  @Sse('updatedOrder')
+  sendUpdatedOrder(): Observable<{ data: any }> {
+    return this.sseService.getUpdatedOrder();
   }
 }
 
