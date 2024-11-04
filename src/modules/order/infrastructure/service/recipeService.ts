@@ -7,7 +7,7 @@ config({
   path: process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : '.env',
 });
 
-const axiosInstance = createAxiosInstance(process.env.ENDPOINT_MS_RECIPE);
+const axiosInstance = createAxiosInstance(process.env.ENDPOINT_MS_RECIPES);
 
 export const RecipeService = {
   async getRandomRecipe(): Promise<IRecipeEntity> {

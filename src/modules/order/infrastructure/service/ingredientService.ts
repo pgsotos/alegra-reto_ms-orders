@@ -8,7 +8,7 @@ config({
   path: process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : '.env',
 });
 
-const axiosInstance = createAxiosInstance(process.env.ENDPOINT_MS_INGREDIENT);
+const axiosInstance = createAxiosInstance(process.env.ENDPOINT_MS_INGREDIENTS);
 
 export const IngredientService = {
   async getIngredientsToRecipe(

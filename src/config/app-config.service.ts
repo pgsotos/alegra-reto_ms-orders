@@ -29,12 +29,16 @@ export class AppConfigService {
     return this.configService.get<string>('domain');
   }
 
-  get endpointMsRecipe(): string {
-    return this.configService.get<string>('endpointMsRecipe');
+  get endpointMsIngredients(): string {
+    return this.configService.get<string>('endpointMsIngredients');
   }
 
-  get endpointMsIngredient(): string {
-    return this.configService.get<string>('endpointMsIngredient');
+  get endpointMsRecipes(): string {
+    return this.configService.get<string>('endpointMsRecipes');
+  }
+
+  get endpointMsOrders(): string {
+    return this.configService.get<string>('endpointMsOrders');
   }
 }
 

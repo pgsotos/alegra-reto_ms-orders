@@ -1,6 +1,15 @@
-FROM mongo:latest
+FROM oven/bun:1.1.15-alpine
 
-ENV MONGO_INITDB_ROOT_USERNAME=pgsotos
-ENV MONGO_INITDB_ROOT_PASSWORD=alegrareto
+WORKDIR /app
 
-CMD ["mongod", "--auth", "--bind_ip", "0.0.0.0"]
+COPY package.json .
+
+RUN bun i
+
+COPY . .
+
+RUN bun build:prod
+
+EXPOSE 5001
+
+CMD ["bun","start"]
