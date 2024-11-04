@@ -5,12 +5,12 @@ import { Order, OrderSchema } from './infrastructure/model';
 import { OrderService } from './application/order.service';
 import { OrderController } from './infrastructure/controllers';
 import { OrderRepository } from './infrastructure/repository';
-import WebSocketModule from '../websocket/websocket.module';
+import SseModule from '../sse/sse.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Order.name, schema: OrderSchema }]),
-    WebSocketModule,
+    SseModule,
   ],
   controllers: [OrderController],
   providers: [

@@ -4,9 +4,9 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { config } from 'dotenv';
 
 import appConfig from './config/app.config';
-import { AppConfigModule } from './config/app-config.module'; // Importar AppConfigModule
-import WebSocketModule from './modules/websocket/websocket.module';
+import { AppConfigModule } from './config/app-config.module';
 import OrderModule from './modules/order/order.module';
+import SseModule from './modules/sse/sse.module';
 
 config({
   path: process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : '.env',
@@ -34,8 +34,8 @@ config({
       }),
     }),
     AppConfigModule,
-    WebSocketModule,
     OrderModule,
+    SseModule,
   ],
   controllers: [],
   providers: [],

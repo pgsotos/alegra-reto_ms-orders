@@ -8,18 +8,7 @@ services:
       - 'traefik.enable=true'
       - 'traefik.http.routers.ms-orders.entrypoints=websecure'
       - 'traefik.http.routers.ms-orders.service=ms-orders'
-      - 'traefik.http.routers.ms-orders.rule=Host(`ms-orders.inforser.cl`)'
+      - 'traefik.http.routers.ms-orders.rule=Host(`ms-orders.pgsotos-dev.xyz`)'
       - 'traefik.http.routers.ms-orders.tls=true'
       - 'traefik.http.routers.ms-orders.tls.certresolver=letsencrypt'
       - 'traefik.http.services.ms-orders.loadbalancer.server.port=5001'
-  db:
-    image: mongo:8.0.3
-    container_name: mongo_db
-    network_mode: 'reverse-proxy'
-    environment:
-      - MONGO_INITDB_ROOT_USERNAME=pgsotos
-      - MONGO_INITDB_ROOT_PASSWORD=alegrareto
-    labels:
-      - 'traefik.enable=true'
-      - 'traefik.http.routers.mongo_db.service=mongo_db'
-      - 'traefik.http.services.mongo_db.loadbalancer.server.port=27017'
