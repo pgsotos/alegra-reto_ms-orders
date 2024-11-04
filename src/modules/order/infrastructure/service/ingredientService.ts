@@ -8,7 +8,7 @@ config({
   path: process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : '.env',
 });
 
-const axiosInstance = createAxiosInstance(process.env.ENDPOINT_MS_RECIPE);
+const axiosInstance = createAxiosInstance(process.env.ENDPOINT_MS_INGREDIENT);
 
 export const IngredientService = {
   async getIngredientsToRecipe(
@@ -18,6 +18,7 @@ export const IngredientService = {
       const response = await axiosInstance.post('/ingredients/recipe', {
         ingredients,
       });
+
       return response.data;
     } catch (e) {
       console.error(`error on getIngredientsToRecipe ${e}`);

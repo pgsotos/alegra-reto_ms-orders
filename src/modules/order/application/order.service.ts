@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { IOrderRepository } from '../domain/repository';
 import RecipeService from '../infrastructure/service/recipeService';
 import WebSocketService from '../../websocket/application/websocket.service';
+import IngredientService from '../infrastructure/service/ingredientService';
 
 @Injectable()
 export class OrderService {
@@ -29,6 +30,7 @@ export class OrderService {
 
   async createOrder() {
     const recipe = await RecipeService.getRandomRecipe();
+    await IngredientService.getIngredientsToRecipe(recipe.ingredients);
     const order = await this.orderRepository.generateOrder(recipe.name);
     this.webSocketService.sendOrderToClient(order);
   }
