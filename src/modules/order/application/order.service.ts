@@ -31,10 +31,17 @@ export class OrderService {
   }
 
   async createOrder() {
+    // Seleccionar receta aleatoriamente
     const recipe = await RecipeService.getRandomRecipe();
-    await IngredientService.getIngredientsToRecipe(recipe.ingredients);
+    // Crear la orden con estado en preparación
     const order = await this.orderRepository.generateOrder(recipe.name);
+    // Emitir la orden creada
     this.sseService.emitCreatedOrder(order);
+    // Obtener los ingredientes, comprar si es necesario
+    await IngredientService.getIngredientsToRecipe(recipe.ingredients);
+    // Cambiar estado de orden al terminar de obtener los ingredientes
+    this.changeOrderStatus(order.orderNumber);
+
     return order;
   }
 }
